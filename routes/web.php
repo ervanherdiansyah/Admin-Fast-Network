@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CourierAdminController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ManagementUserAdminController;
+use App\Http\Controllers\Admin\OrderAdminController;
 use App\Http\Controllers\Admin\PaketAdminController;
 use App\Http\Controllers\Admin\ProductAdminController;
 use App\Http\Controllers\Admin\RewardAdminController;
@@ -72,11 +73,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/reward/update/{id}', [RewardAdminController::class, 'updateReward']);
         Route::delete('/reward/delete/{id}', [RewardAdminController::class, 'deleteReward']);
 
-        // Alamat
-        Route::get('/useralamat-by-userid', [AlamatController::class, 'getAlamatByUserId']);
-        Route::post('/useralamat/create', [AlamatController::class, 'createAlamat']);
-        Route::post('/useralamat/update/{id}', [AlamatController::class, 'updateAlamat']);
-        Route::delete('/useralamat/delete/{id}', [AlamatController::class, 'deleteAlamat']);
+        // Order
+        Route::get('/order', [OrderAdminController::class, 'getOrder']);
+        Route::post('/order/create', [OrderAdminController::class, 'createOrder']);
+        Route::get('/order-byid/{id}', [OrderAdminController::class, 'getOrderById']);
+        Route::put('/order/update/{id}', [OrderAdminController::class, 'updateOrder']);
+        Route::delete('/order/delete/{id}', [OrderAdminController::class, 'deleteOrder']);
     });
 });
 
