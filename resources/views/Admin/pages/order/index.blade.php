@@ -19,10 +19,10 @@
                                     data-bs-target="#import">
                                     Import
                                 </button> --}}
-                                <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
+                                {{-- <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
                                     Tambah Order
-                                </button>
+                                </button> --}}
                             </div>
                         </div>
                     </div>
@@ -268,7 +268,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Courier {{ $item->nama_lengkap }}</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Order</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

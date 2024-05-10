@@ -1,5 +1,5 @@
 @extends('Admin.layouts.layout')
-@section('title', 'Product')
+@section('title', 'Withdraw Point')
 @section('css')
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css" />
 @endsection
@@ -9,9 +9,9 @@
             <div class="col-12 ">
                 <div class="card mb-4 ">
                     <div class="card-header pb-0">
-                        <h6 class="d-lg-none">Product</h6>
+                        <h6 class="d-lg-none">Withdraw Point</h6>
                         <div class="d-flex align-items-center">
-                            <h6 class="d-none d-lg-block">Product</h6>
+                            <h6 class="d-none d-lg-block">Withdraw Point</h6>
                             <div class="d-flex flex-wrap align-items-center ms-auto gap-2">
                                 {{-- <a href="{{ url('/dashboard/siswa/export') }}"
                                     class="btn btn-primary btn-sm ms-auto">Export</a> --}}
@@ -19,10 +19,10 @@
                                     data-bs-target="#import">
                                     Import
                                 </button> --}}
-                                <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
+                                {{-- <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
-                                    Tambah Product
-                                </button>
+                                    Tambah Withdraw Point
+                                </button> --}}
                             </div>
                         </div>
                     </div>
@@ -33,42 +33,72 @@
                                     <tr>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
-                                            Nama Product</th>
+                                            Nama</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
-                                            Image</th>
+                                            Reward</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
-                                            Stock</th>
-                                        <th class="text-secondary opacity-7"></th>
+                                            Jumlah Pencairan</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Point</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Status</th>
+                                        {{-- <th class="text-secondary opacity-7"></th> --}}
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($product as $item)
+                                    @foreach ($withdrawPoint as $item)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->product_name }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item->users->name }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
-                                            </td>
-                                            <td>
-                                                <img src="{{ asset('storage/' . $item->image) }}"
-                                                    style="display:block; margin:auto; max-width: 20%" alt="paket_image"
-                                                    class="w-100 border-radius-lg shadow-sm">
                                             </td>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->stock }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item->rewards->reward_name }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="align-middle">
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $item->point }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        @if ($item->status_withdraw == 'Pending')
+                                                            <button type="button" class="btn btn-danger btn-sm ms-auto"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#updateStatus{{ $item->id }}">
+                                                                {{ $item->status_withdraw }}
+                                                            </button>
+                                                        @else
+                                                            <button type="button" class="btn btn-info btn-sm ms-auto"
+                                                                data-bs-toggle="modal" data-bs-target="">
+                                                                {{ $item->status_withdraw }}
+                                                            </button>
+                                                        @endif
+
+                                                        {{-- <h6 class="mb-0 text-sm">{{ $item->status_withdraw }}</h6> --}}
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            {{-- <td class="align-middle">
                                                 <a type="button" class="" data-bs-toggle="modal"
                                                     data-bs-target="#update{{ $item->id }}">
                                                     <i class="fas fa-edit text-success text-sm opacity-10"></i>
@@ -77,8 +107,7 @@
                                                     data-bs-target="#delete{{ $item->id }}">
                                                     <i class="fas fa-trash fa-xs text-danger text-sm opacity-10"></i>
                                                 </a>
-
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -130,47 +159,49 @@
 
     <!-- Modal Create Data-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Product</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Withdraw Point</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('/admin/product/create') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('/admin/withdraw-point/create') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Nama Product</label>
-                                    <input name="product_name" class="form-control" type="text"
-                                        value="{{ old('product_name') }}">
-                                    @error('product_name')
+                                    <label>User</label>
+                                    <select name="user_id" id="" class="form-control">
+                                        <option disabled selected value="">Pilih User</option>
+                                        @foreach ($user as $data)
+                                            <option value="{{ $data->id }}"
+                                                {{ old('user_id') == $data->id ? 'selected' : '' }}>{{ $data->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('user_id')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Image</label>
-                                    <input name="image" class="form-control" type="file"
-                                        value="{{ old('image') }}">
-                                    @error('image')
+                                    <label>Reward</label>
+                                    <select name="reward_id" id="" class="form-control">
+                                        <option disabled selected value="">Pilih Reward</option>
+                                        @foreach ($reward as $data)
+                                            <option value="{{ $data->id }}"
+                                                {{ old('reward_id') == $data->id ? 'selected' : '' }}>
+                                                {{ $data->reward_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('reward_id')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Stock</label>
-                                    <input name="stock" class="form-control" type="number"
-                                        value="{{ old('stock') }}">
-                                    @error('stock')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -183,77 +214,56 @@
     </div>
     <!-- End Modal Create Data-->
 
-    <!-- Modal Import Data-->
-    <div class="modal fade" id="import" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Import Data Siswa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ url('/dashboard/siswa/import') }}" method="Post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Import Data Siswa</label>
-                                <input name="upload" class="form-control" type="file">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Modal Import Data-->
-
     <!-- Modal Update Data-->
-    @foreach ($product as $item)
+    @foreach ($withdrawPoint as $item)
         <div class="modal fade" id="update{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update Product</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Update Withdraw Point</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ url('/admin/product/update/' . $item->id) }}" method="POST"
+                        <form action="{{ url('/admin/withdraw-point/update/' . $item->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Nama Product</label>
-                                        <input name="product_name" class="form-control" type="text"
-                                            value="{{ $item->product_name }}">
-                                        @error('product_name')
+                                        <label>User</label>
+                                        <select name="user_id" id="" class="form-control">
+                                            <option disabled selected value="">Pilih User</option>
+                                            <option value="{{ $item->user_id }}">
+                                                {{ $data->users->name }}
+                                            </option>
+                                            @foreach ($user as $data)
+                                                <option value="{{ $data->id }}">{{ $data->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('user_id')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Stock</label>
-                                        <input name="stock" class="form-control" type="number"
-                                            value="{{ $item->stock }}">
-                                        @error('stock')
+                                        <label>Reward</label>
+                                        <select name="reward_id" id="" class="form-control">
+                                            <option disabled selected value="">Pilih Reward</option>
+                                            <option value="{{ $item->reward_id }}">
+                                                {{ $data->rewards->reward_name }}
+                                            </option>
+                                            @foreach ($reward as $data)
+                                                <option value="{{ $data->id }}">{{ $data->reward_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('reward_id')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <img src="{{ asset('storage/' . $item->image) }}"
-                                            style="display:block; margin:auto; max-width: 100%" alt="paket_image"
-                                            class="w-100 border-radius-lg shadow-sm">
-                                        <label for="example-text-input" class="form-control-label">Image</label>
-                                        <input name="image" class="form-control" type="file">
                                     </div>
                                 </div>
                             </div>
@@ -270,17 +280,18 @@
     <!-- End Modal Update Data-->
 
     <!-- Modal Delete Data-->
-    @foreach ($product as $item)
+    @foreach ($withdrawPoint as $item)
         <div class="modal fade" id="delete{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Product </h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Withdraw Point
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ url('/admin/product/delete/' . $item->id) }}" method="Post">
+                        <form action="{{ url('/admin/withdraw-point/delete/' . $item->id) }}" method="Post">
                             @csrf
                             @method('DELETE')
                             <p>apakah anda yakin ingin menghapus data ini?</p>
@@ -295,6 +306,49 @@
         </div>
     @endforeach
     <!-- End Modal Delete Data-->
+
+    <!-- Modal Update Status-->
+    @foreach ($withdrawPoint as $item)
+        <div class="modal fade" id="updateStatus{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Withdraw Point Status</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('/admin/withdraw-point-status/update/' . $item->id) }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <select name="status_withdraw" id="" class="form-control">
+                                            <option disabled selected value="">Pilih...</option>
+                                            <option value="Acc">
+                                                Acc Penukaran Point
+                                            </option>
+                                        </select>
+                                        @error('status_withdraw')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    <!-- End Modal Update Data-->
 
 @endsection
 @push('script')

@@ -123,7 +123,11 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Nama Courier</label>
-                                    <input name="courier_name" class="form-control" type="text">
+                                    <input name="courier_name" class="form-control" type="text"
+                                        value="{{ old('courier_name') }}">
+                                    @error('courier_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -187,6 +191,9 @@
                                         <label for="example-text-input" class="form-control-label">Nama Product</label>
                                         <input name="courier_name" class="form-control" type="text"
                                             value="{{ $item->courier_name }}">
+                                        @error('courier_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

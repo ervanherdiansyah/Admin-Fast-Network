@@ -19,10 +19,10 @@
                                         {{-- {{ $totalPendaftaran }} --}}
                                         Rp.{{ number_format($totalPendapatan) }}
                                     </h5>
-                                    <p class="mb-0" style="font-size: 14px; color: blue">
-                                        <a href="" class="text-success text-sm font-weight-bolder"></a>
+                                    <a href="{{ url('/admin/order') }}" class="mb-0" style="font-size: 14px; color: blue">
+                                        <span class="text-success text-sm font-weight-bolder"></span>
                                         Lihat Detail
-                                    </p>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
@@ -45,10 +45,11 @@
                                         {{-- {{ $totalGuru }} --}}
                                         {{ $totalMitra }} Mitra
                                     </h5>
-                                    <p class="mb-0" style="font-size: 14px; color: blue;">
+                                    <a href="{{ url('/admin/mitra') }}" class="mb-0"
+                                        style="font-size: 14px; color: blue;">
                                         <span class="text-success text-sm font-weight-bolder"></span>
                                         Lihat Detail
-                                    </p>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-4 text-end">

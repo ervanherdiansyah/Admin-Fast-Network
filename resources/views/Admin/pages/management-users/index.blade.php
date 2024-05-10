@@ -163,19 +163,31 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Nama</label>
-                                    <input name="name" class="form-control" type="text">
+                                    <input name="name" class="form-control" type="text"
+                                        value="{{ old('name') }}">
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Email</label>
-                                    <input name="email" class="form-control" type="email">
+                                    <input name="email" class="form-control" type="email"
+                                        value="{{ old('email') }}">
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Role</label>
-                                    <input name="role" class="form-control" type="text">
+                                    <input name="role" class="form-control" type="text"
+                                        value="{{ old('role') }}">
+                                    @error('role')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -183,7 +195,10 @@
                                     <label for="example-text-input" class="form-control-label">Referral</label>
                                     <div class="input-group">
                                         <input name="referral" class="form-control" type="text"
-                                            value="{{ $item->referral }}">
+                                            value="{{ old('referral') }}">
+                                        @error('referral')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                         <div class="input-group-append">
                                             <button id="generateButton{{ $item->id }}" class="btn btn-primary"
                                                 type="button" data-item-id="{{ $item->id }}">Generate
@@ -274,6 +289,9 @@
                                         <label for="example-text-input" class="form-control-label">Nama</label>
                                         <input name="name" class="form-control" type="text"
                                             value="{{ $item->name }}">
+                                        @error('name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -281,6 +299,9 @@
                                         <label for="example-text-input" class="form-control-label">Email</label>
                                         <input name="email" class="form-control" type="text"
                                             value="{{ $item->email }}">
+                                        @error('email')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -288,6 +309,9 @@
                                         <label for="example-text-input" class="form-control-label">Role</label>
                                         <input name="role" class="form-control" type="text"
                                             value="{{ $item->role }}">
+                                        @error('role')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -296,6 +320,9 @@
                                         <div class="input-group">
                                             <input name="referral" class="form-control" type="text"
                                                 value="{{ $item->referral }}">
+                                            @error('referral')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                             <div class="input-group-append">
                                                 <button id="generateButton{{ $item->id }}" class="btn btn-primary"
                                                     type="button" data-item-id="{{ $item->id }}">Generate

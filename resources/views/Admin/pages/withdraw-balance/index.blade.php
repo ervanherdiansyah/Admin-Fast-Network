@@ -1,79 +1,102 @@
 @extends('Admin.layouts.layout')
-@section('title', 'Dashboard')
-@section('chartjs')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.47.0/apexcharts.min.css"
-        integrity="sha512-qc0GepkUB5ugt8LevOF/K2h2lLGIloDBcWX8yawu/5V8FXSxZLn3NVMZskeEyOhlc6RxKiEj6QpSrlAoL1D3TA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+@section('title', 'Withdraw Balance')
+@section('css')
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css" />
 @endsection
 @section('content')
-    <div class="container-fluid py-4">
+    <div class="container-fluid py-4 ">
         <div class="row">
-            <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Pendapatan Penjualan</p>
-                                    <h5 class="font-weight-bolder">
-                                        {{-- {{ $totalPendaftaran }} --}}
-                                        Rp.{{ number_format($totalPendapatan) }}
-                                    </h5>
-                                    <p class="mb-0" style="font-size: 14px; color: blue">
-                                        <a href="" class="text-success text-sm font-weight-bolder"></a>
-                                        Lihat Detail
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
+            <div class="col-12 ">
+                <div class="card mb-4 ">
+                    <div class="card-header pb-0">
+                        <h6 class="d-lg-none">Withdraw Balance</h6>
+                        <div class="d-flex align-items-center">
+                            <h6 class="d-none d-lg-block">Withdraw Balance</h6>
+                            <div class="d-flex flex-wrap align-items-center ms-auto gap-2">
+                                {{-- <a href="{{ url('/dashboard/siswa/export') }}"
+                                    class="btn btn-primary btn-sm ms-auto">Export</a> --}}
+                                {{-- <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
+                                    data-bs-target="#import">
+                                    Import
+                                </button> --}}
+                                {{-- <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Tambah Withdraw Balance
+                                </button> --}}
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Mitra Baru</p>
-                                    <h5 class="font-weight-bolder">
-                                        {{-- {{ $totalGuru }} --}}
-                                        {{ $totalMitra }} Mitra
-                                    </h5>
-                                    <p class="mb-0" style="font-size: 14px; color: blue;">
-                                        <span class="text-success text-sm font-weight-bolder"></span>
-                                        Lihat Detail
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-lg-12 mb-lg-0 mb-4">
-                <div class="card z-index-2 h-100">
-                    <div class="card-header pb-0 pt-3 bg-transparent">
-                        {{-- <h6 class="text-capitalize">Pendaftaran Pertahun</h6> --}}
-                        {{-- <p class="text-sm mb-0">
-                            <i class="fa fa-arrow-up text-success"></i>
-                            <span class="font-weight-bold">4% more</span> in 2021
-                        </p> --}}
-                    </div>
-                    <div class="card-body p-3">
-                        <div class="chart">
-                            {{-- <canvas id="chart-line" class="chart-canvas" height="300"></canvas> --}}
+                    <div class="card-body px-4 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="myTable" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Nama</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Status</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Jumlah Pencairan</th>
+                                        {{-- <th class="text-secondary opacity-7"></th> --}}
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($withdrawBalance as $item)
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $item->users->name }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        @if ($item->status_withdraw == 'Pending')
+                                                            <button type="button" class="btn btn-danger btn-sm ms-auto"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#updateStatus{{ $item->id }}">
+                                                                {{ $item->status_withdraw }}
+                                                            </button>
+                                                        @else
+                                                            <button type="button" class="btn btn-info btn-sm ms-auto"
+                                                                data-bs-toggle="modal" data-bs-target="">
+                                                                {{ $item->status_withdraw }}
+                                                            </button>
+                                                        @endif
+                                                        {{-- <h6 class="mb-0 text-sm">{{ $item->status_withdraw }}</h6> --}}
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $item->amount_withdraw }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            {{-- <td class="align-middle">
+                                                <a type="button" class="" data-bs-toggle="modal"
+                                                    data-bs-target="#update{{ $item->id }}">
+                                                    <i class="fas fa-edit text-success text-sm opacity-10"></i>
+                                                </a>
+                                                <a type="button" class="" data-bs-toggle="modal"
+                                                    data-bs-target="#delete{{ $item->id }}">
+                                                    <i class="fas fa-trash fa-xs text-danger text-sm opacity-10"></i>
+                                                </a>
+                                            </td> --}}
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -118,162 +141,226 @@
             </div>
         </footer>
     </div>
-    @push('chart')
-        <script>
-            const chartData = @json($chart_data); // Variabel chartData diinisialisasi dengan data dari PHP
-            const chartLabel = chartData.map(item => item.month_name);
-            const chartValue = chartData.map(item => item.total);
-            console.log(chartValue);
-            var ctx1 = document.getElementById("chart-line").getContext("2d");
 
-            var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+    <!-- Modal Create Data-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Withdraw Balance</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url('/admin/withdraw-balance/create') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>User</label>
+                                    <select name="user_id" id="" class="form-control">
+                                        <option disabled selected value="">Pilih User</option>
+                                        @foreach ($user as $data)
+                                            <option value="{{ $data->id }}"
+                                                {{ old('user_id') == $data->id ? 'selected' : '' }}>{{ $data->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('user_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Jumlah Pencairan</label>
+                                    <input name="amount_withdraw" class="form-control" type="number"
+                                        value="{{ old('amount_withdraw') }}">
+                                </div>
+                                @error('amount_withdraw')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Create Data-->
 
-            gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-            gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-            gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-            new Chart(ctx1, {
-                type: "line",
-                data: {
-                    labels: chartLabel,
-                    datasets: [{
-                        label: "Pendaftaran",
-                        tension: 0.4,
-                        borderWidth: 0,
-                        pointRadius: 0,
-                        borderColor: "#5e72e4",
-                        backgroundColor: gradientStroke1,
-                        borderWidth: 3,
-                        fill: true,
-                        data: chartValue,
-                        maxBarThickness: 6
+    <!-- Modal Import Data-->
+    <div class="modal fade" id="import" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Import Data Siswa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url('/dashboard/withdraw-balance/import') }}" method="Post"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="example-text-input" class="form-control-label">Import Data Siswa</label>
+                                <input name="upload" class="form-control" type="file">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Import Data-->
 
-                    }],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false,
-                        }
-                    },
-                    interaction: {
-                        intersect: false,
-                        mode: 'index',
-                    },
-                    scales: {
-                        y: {
-                            grid: {
-                                drawBorder: false,
-                                display: true,
-                                drawOnChartArea: true,
-                                drawTicks: false,
-                                borderDash: [5, 5]
-                            },
-                            ticks: {
-                                display: true,
-                                padding: 10,
-                                color: '#fbfbfb',
-                                font: {
-                                    size: 11,
-                                    family: "Open Sans",
-                                    style: 'normal',
-                                    lineHeight: 2
-                                },
-                            }
-                        },
-                        x: {
-                            grid: {
-                                drawBorder: false,
-                                display: false,
-                                drawOnChartArea: false,
-                                drawTicks: false,
-                                borderDash: [5, 5]
-                            },
-                            ticks: {
-                                display: true,
-                                color: '#ccc',
-                                padding: 20,
-                                font: {
-                                    size: 11,
-                                    family: "Open Sans",
-                                    style: 'normal',
-                                    lineHeight: 2
-                                },
-                            }
-                        },
-                    },
-                },
-            });
-        </script>
-    @endpush
+    <!-- Modal Update Data-->
+    @foreach ($withdrawBalance as $item)
+        <div class="modal fade" id="update{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Withdraw Balance</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('/admin/withdraw-balance/update/' . $item->id) }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>User</label>
+                                        <select name="user_id" id="" class="form-control">
+                                            <option disabled selected value="">Pilih User</option>
+                                            <option value="{{ $item->user_id }}">
+                                                {{ $data->users->name }}
+                                            </option>
+                                            @foreach ($user as $data)
+                                                <option value="{{ $data->id }}">{{ $data->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('user_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="form-control-label">Jumlah
+                                            Pencairan</label>
+                                        <input name="amount_withdraw" class="form-control" type="text"
+                                            value="{{ $item->amount_withdraw }}">
+                                    </div>
+                                    @error('amount_withdraw')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    <!-- End Modal Update Data-->
 
-    {{-- @push('chartjs')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.47.0/apexcharts.min.js"
-            integrity="sha512-oM6gsyV28tHLTsSyakEjJ8TpRtYpjrbWQ9aBEPJIyS17LcEXltOVDaa/S9V+x9cxT9HKW+x3E39wqtYYDU1LXw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
-            var options = {
-                series: ['Red', 'Blue'],
-                chart: {
-                    width: 380,
-                    type: 'pie',
-                },
-                labels: [50, 50],
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
-            };
+    <!-- Modal Delete Data-->
+    @foreach ($withdrawBalance as $item)
+        <div class="modal fade" id="delete{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Withdraw Balance
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('/admin/withdraw-balance/delete/' . $item->id) }}" method="Post">
+                            @csrf
+                            @method('DELETE')
+                            <p>apakah anda yakin ingin menghapus data ini?</p>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    <!-- End Modal Delete Data-->
 
-            var chart = new ApexCharts(document.querySelector("#chartPie"), options);
-            chart.render();
-        </script>
-
-        <script>
-            var options = {
-                series: [{
-                    name: "Desktops",
-                    data: @json($data)
-                }],
-                chart: {
-                    height: 350,
-                    type: 'line',
-                    zoom: {
-                        enabled: false
-                    }
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    curve: 'straight'
-                },
-                title: {
-                    text: 'Pendaftaran Pertahun',
-                    align: 'left',
-                },
-                grid: {
-                    row: {
-                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                        opacity: 0.5
-                    },
-                },
-                xaxis: {
-                    categories: @json($labels),
-                }
-            };
-            var chart = new ApexCharts(document.querySelector("#chartLine"), options);
-            chart.render();
-        </script>
-    @endpush --}}
-
+    <!-- Modal Update Status-->
+    @foreach ($withdrawBalance as $item)
+        <div class="modal fade" id="updateStatus{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Withdraw Balance Status</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('/admin/withdraw-balance-status/update/' . $item->id) }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <select name="status_withdraw" id="" class="form-control">
+                                            <option disabled selected value="">Pilih...</option>
+                                            <option value="Acc">
+                                                Acc Penukaran Point
+                                            </option>
+                                        </select>
+                                        @error('status_withdraw')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    <!-- End Modal Update Data-->
 
 @endsection
+@push('script')
+    <!-- Tautkan file JavaScript jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//cdn.datatables.net/2.0.1/js/dataTables.min.js"></script>
+    <script>
+        let table = new DataTable('#myTablee');
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+@endpush

@@ -14,7 +14,7 @@ class ManagementUserAdminController extends Controller
     {
         try {
             //code...
-            $users = User::get();
+            $users = User::where('role', 'mitra')->get();
             return view('Admin.pages.management-users.index', compact('users'));
         } catch (\Throwable $th) {
             //throw $th;

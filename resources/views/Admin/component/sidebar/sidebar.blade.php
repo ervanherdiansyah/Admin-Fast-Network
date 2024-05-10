@@ -84,76 +84,36 @@
                     <span class="nav-link-text ms-1">Order</span>
                 </a>
             </li>
-            {{-- <li class="nav-item">
-                <a class="nav-link " href="{{ asset('argon') }}/pages/virtual-reality.html">
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/mitra') ? 'active' : '' }}"
+                    href="{{ url('/admin/mitra') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-app text-info text-sm opacity-10"></i>
+                        <i class="fa fa-calendar-check-o text-info text-sm opacity-10" aria-hidden="true"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Virtual Reality</span>
+                    <span class="nav-link-text ms-1">Mitra</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{ asset('argon') }}/pages/rtl.html">
+                <a class="nav-link {{ request()->is('admin/withdraw-balance') ? 'active' : '' }}"
+                    href="{{ url('/admin/withdraw-balance') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
+                        <i class="fa fa-calendar-check-o text-info text-sm opacity-10" aria-hidden="true"></i>
                     </div>
-                    <span class="nav-link-text ms-1">RTL</span>
-                </a>
-            </li> --}}
-            <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Information Umroh</h6>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/siswa') ? 'active' : '' }} "
-                    href="{{ url('/dashboard/siswa') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-copy-04 text-info text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Siswa</span>
+                    <span class="nav-link-text ms-1">Withdraw Balance</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/guru') ? 'active' : '' }}"
-                    href="{{ url('/dashboard/guru') }}">
+                <a class="nav-link {{ request()->is('admin/withdraw-point') ? 'active' : '' }}"
+                    href="{{ url('/admin/withdraw-point') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
+                        <i class="fa fa-calendar-check-o text-info text-sm opacity-10" aria-hidden="true"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Guru</span>
+                    <span class="nav-link-text ms-1">Withdraw Point</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/alumi') ? 'active' : '' }}"
-                    href="{{ url('/dashboard/alumi') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-copy-04 text-info text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Alumi</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/spp') ? 'active' : '' }}"
-                    href="{{ url('/dashboard/spp') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-copy-04 text-success text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">SPP</span>
-                </a>
-            </li>
-            {{-- <li class="nav-item">
-                <a class="nav-link " href="{{ asset('argon') }}/pages/sign-up.html">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-collection text-info text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Sign Up</span>
-                </a>
-            </li> --}}
         </ul>
     </div>
     <div class="sidenav-footer mx-3 ">

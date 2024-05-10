@@ -211,55 +211,90 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Nama Paket</label>
-                                    <input name="paket_nama" class="form-control" type="text">
+                                    <input name="paket_nama" class="form-control" type="text"
+                                        value="{{ old('paket_name') }}">
+                                    @error('paket_nama')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Max Quantity</label>
-                                    <input name="max_quantity" class="form-control" type="number">
+                                    <input name="max_quantity" class="form-control" type="number"
+                                        value="{{ old('max_quantity') }}">
+                                    @error('max_quantity')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Price</label>
-                                    <input name="price" class="form-control" type="number">
+                                    <input name="price" class="form-control" type="number"
+                                        value="{{ old('price') }}">
+                                    @error('price')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Weight</label>
-                                    <input name="weight" class="form-control" type="number">
+                                    <input name="weight" class="form-control" type="number"
+                                        value="{{ old('weight') }}">
+                                    @error('weight')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Description</label>
-                                    <input name="description" class="form-control" type="text">
+                                    <input name="description" class="form-control" type="text"
+                                        value="{{ old('description') }}">
+                                    @error('description')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Image</label>
                                     <input name="image" class="form-control" type="file">
+                                    @error('image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Point</label>
-                                    <input name="point" class="form-control" type="number">
+                                    <input name="point" class="form-control" type="number"
+                                        value="{{ old('point') }}">
+                                    @error('point')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Kode Paket</label>
-                                    <input name="paket_kode" class="form-control" type="text">
+                                    <input name="paket_kode" class="form-control" type="text"
+                                        value="{{ old('paket_kode') }}">
+                                    @error('paket_kode')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Value</label>
-                                    <input name="value" class="form-control" type="number">
+                                    <input name="value" class="form-control" type="number"
+                                        value="{{ old('value') }}">
+                                    @error('value')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -323,6 +358,9 @@
                                         <label for="example-text-input" class="form-control-label">Nama Paket</label>
                                         <input name="paket_nama" class="form-control" type="text"
                                             value="{{ $item->paket_nama }}">
+                                        @error('paket_nama')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -330,6 +368,9 @@
                                         <label for="example-text-input" class="form-control-label">Max Quantity</label>
                                         <input name="max_quantity" class="form-control" type="number"
                                             value="{{ $item->max_quantity }}">
+                                        @error('max_quantity')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -337,6 +378,9 @@
                                         <label for="example-text-input" class="form-control-label">Price</label>
                                         <input name="price" class="form-control" type="number"
                                             value="{{ $item->price }}">
+                                        @error('price')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -344,6 +388,9 @@
                                         <label for="example-text-input" class="form-control-label">Weight</label>
                                         <input name="weight" class="form-control" type="number"
                                             value="{{ $item->weight }}">
+                                        @error('weight')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -351,6 +398,9 @@
                                         <label for="example-text-input" class="form-control-label">Description</label>
                                         <input name="description" class="form-control" type="text"
                                             value="{{ $item->description }}">
+                                        @error('description')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -358,6 +408,9 @@
                                         <label for="example-text-input" class="form-control-label">Point</label>
                                         <input name="point" class="form-control" type="number"
                                             value="{{ $item->point }}">
+                                        @error('point')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -365,6 +418,9 @@
                                         <label for="example-text-input" class="form-control-label">Kode Paket</label>
                                         <input name="paket_kode" class="form-control" type="text"
                                             value="{{ $item->paket_kode }}">
+                                        @error('paket_kode')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -372,6 +428,9 @@
                                         <label for="example-text-input" class="form-control-label">Value</label>
                                         <input name="value" class="form-control" type="number"
                                             value="{{ $item->value }}">
+                                        @error('value')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -381,6 +440,9 @@
                                             class="w-100 border-radius-lg shadow-sm">
                                         <label for="example-text-input" class="form-control-label">Image</label>
                                         <input name="image" class="form-control" type="file">
+                                        @error('image')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -403,7 +465,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Data {{ $item->nama_lengkap }}</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Paket </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
