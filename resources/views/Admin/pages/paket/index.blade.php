@@ -64,12 +64,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($paket as $item)
+                                    @foreach ($package['data'] as $item)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->paket_nama }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item['paket_nama'] }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
@@ -77,7 +77,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->max_quantity }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item['max_quantity'] }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
@@ -85,7 +85,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->price }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item['price'] }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
@@ -93,7 +93,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->weight }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item['weight'] }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
@@ -101,20 +101,20 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->description }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item['description'] }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <img src="{{ asset('storage/' . $item->image) }}"
+                                                <img src="{{ env('FASTNETWORK_IMAGE_URL') . $item['image'] }}"
                                                     style="display:block; margin:auto; max-width: 50%" alt="paket_image"
                                                     class="w-100 border-radius-lg shadow-sm">
                                             </td>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->point }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item['point'] }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
@@ -122,7 +122,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->paket_kode }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item['paket_kode'] }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
@@ -130,7 +130,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->value }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item['value'] }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
@@ -138,11 +138,11 @@
 
                                             <td class="align-middle">
                                                 <a type="button" class="" data-bs-toggle="modal"
-                                                    data-bs-target="#update{{ $item->id }}">
+                                                    data-bs-target="#update{{ $item['id'] }}">
                                                     <i class="fas fa-edit text-success text-sm opacity-10"></i>
                                                 </a>
                                                 <a type="button" class="" data-bs-toggle="modal"
-                                                    data-bs-target="#delete{{ $item->id }}">
+                                                    data-bs-target="#delete{{ $item['id'] }}">
                                                     <i class="fas fa-trash fa-xs text-danger text-sm opacity-10"></i>
                                                 </a>
 
@@ -205,8 +205,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('/admin/paket/create') }}" method="POST" enctype="multipart/form-data">
+                    <form id="createForm" enctype="multipart/form-data">
                         @csrf
+                        @method('POST')
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -300,7 +301,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" onclick="createPackage()" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -338,8 +339,8 @@
     <!-- End Modal Import Data-->
 
     <!-- Modal Update Data-->
-    @foreach ($paket as $item)
-        <div class="modal fade" id="update{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    @foreach ($package['data'] as $item)
+        <div class="modal fade" id="update{{ $item['id'] }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -348,16 +349,15 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ url('/admin/paket/update/' . $item->id) }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form id="updateForm{{ $item['id'] }}" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
+                            @method('POST')
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Nama Paket</label>
                                         <input name="paket_nama" class="form-control" type="text"
-                                            value="{{ $item->paket_nama }}">
+                                            value="{{ $item['paket_nama'] }}">
                                         @error('paket_nama')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -367,7 +367,7 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Max Quantity</label>
                                         <input name="max_quantity" class="form-control" type="number"
-                                            value="{{ $item->max_quantity }}">
+                                            value="{{ $item['max_quantity'] }}">
                                         @error('max_quantity')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -377,7 +377,7 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Price</label>
                                         <input name="price" class="form-control" type="number"
-                                            value="{{ $item->price }}">
+                                            value="{{ $item['price'] }}">
                                         @error('price')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -387,7 +387,7 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Weight</label>
                                         <input name="weight" class="form-control" type="number"
-                                            value="{{ $item->weight }}">
+                                            value="{{ $item['weight'] }}">
                                         @error('weight')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -397,7 +397,7 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Description</label>
                                         <input name="description" class="form-control" type="text"
-                                            value="{{ $item->description }}">
+                                            value="{{ $item['description'] }}">
                                         @error('description')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -407,7 +407,7 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Point</label>
                                         <input name="point" class="form-control" type="number"
-                                            value="{{ $item->point }}">
+                                            value="{{ $item['point'] }}">
                                         @error('point')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -417,7 +417,7 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Kode Paket</label>
                                         <input name="paket_kode" class="form-control" type="text"
-                                            value="{{ $item->paket_kode }}">
+                                            value="{{ $item['paket_kode'] }}">
                                         @error('paket_kode')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -427,7 +427,7 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Value</label>
                                         <input name="value" class="form-control" type="number"
-                                            value="{{ $item->value }}">
+                                            value="{{ $item['value'] }}">
                                         @error('value')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -435,7 +435,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <img src="{{ asset('storage/' . $item->image) }}"
+                                        <img src="{{ env('FASTNETWORK_IMAGE_URL') . $item['image'] }}"
                                             style="display:block; margin:auto; max-width: 100%" alt="paket_image"
                                             class="w-100 border-radius-lg shadow-sm">
                                         <label for="example-text-input" class="form-control-label">Image</label>
@@ -448,7 +448,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" onclick="updatePackage({{ $item['id'] }})"
+                                    class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -459,8 +460,8 @@
     <!-- End Modal Update Data-->
 
     <!-- Modal Delete Data-->
-    @foreach ($paket as $item)
-        <div class="modal fade" id="delete{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    @foreach ($package['data'] as $item)
+        <div class="modal fade" id="delete{{ $item['id'] }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -469,13 +470,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ url('/admin/paket/delete/' . $item->id) }}" method="Post">
+                        <form action="">
                             @csrf
                             @method('DELETE')
                             <p>apakah anda yakin ingin menghapus data ini?</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Delete</button>
+                                <button type="submit" onclick="deletePackage({{ $item['id'] }})"
+                                    class="btn btn-primary">Delete</button>
                             </div>
                         </form>
                     </div>
@@ -484,6 +486,146 @@
         </div>
     @endforeach
     <!-- End Modal Delete Data-->
+
+    <!-- Create data api menggunakan axios-->
+    <script>
+        function createPackage() {
+            // Dapatkan data formulir
+            event.preventDefault();
+
+            const form = document.getElementById('createForm');
+            const formData = new FormData(form);
+
+            // Kirim data ke API menggunakan Axios
+            axios.post(`https://backend.fastnetwork.id/api/package/create`, formData)
+                .then(response => {
+                    // Tanggapan berhasil
+                    console.log(response.data);
+                    // Tampilkan pesan sukses dengan SweetAlert
+                    $('#exampleModal').modal('hide');
+                    // Lakukan tindakan sesuai kebutuhan, misalnya menampilkan pesan sukses atau me-redirect ke halaman lain
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Produk berhasil diperbarui!',
+                        timer: 5000, // waktu dalam milidetik (misalnya, 3000ms = 3 detik)
+                    }).then((result) => {
+                        // Jika pengguna menekan tombol "OK", refresh halaman
+                        if (result.isConfirmed) {
+                            // Tunggu 2 detik sebelum memuat ulang halaman
+                            window.location.reload();
+                        } else {
+                            window.location.reload();
+
+                        }
+                    });
+                })
+                .catch(error => {
+                    // Tanggapan gagal
+                    console.error(error.response.data);
+
+                    // Tampilkan pesan kesalahan pada formulir
+                    if (error.response.data.errors) {
+                        const errors = error.response.data.errors;
+                        Object.keys(errors).forEach(field => {
+                            const errorMessage = errors[field][0];
+                            document.getElementById(field + 'Error').innerText = errorMessage;
+                        });
+                    }
+                });
+        }
+    </script>
+    <!-- Delete data api menggunakan axios-->
+    <script>
+        function deletePackage(packageId) {
+            // Kirim permintaan DELETE ke API menggunakan Axios
+            event.preventDefault();
+
+            axios.delete(`https://backend.fastnetwork.id/api/package/delete/${packageId}`)
+                .then(response => {
+                    // Tanggapan berhasil
+                    console.log(response.data);
+                    // Tampilkan pesan sukses dengan SweetAlert
+                    $('#delete' + packageId).modal('hide');
+                    // Lakukan tindakan sesuai kebutuhan, misalnya menampilkan pesan sukses atau me-redirect ke halaman lain
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Produk berhasil diperbarui!',
+                        timer: 5000, // waktu dalam milidetik (misalnya, 3000ms = 3 detik)
+                    }).then((result) => {
+                        // Jika pengguna menekan tombol "OK", refresh halaman
+                        if (result.isConfirmed) {
+                            // Tunggu 2 detik sebelum memuat ulang halaman
+                            window.location.reload();
+                        } else {
+                            window.location.reload();
+
+                        }
+                    });
+                })
+                .catch(error => {
+                    // Tanggapan gagal
+                    console.error(error.response.data);
+                    // Tampilkan pesan kesalahan dengan SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Terjadi kesalahan saat menghapus produk.',
+                    });
+                });
+        }
+    </script>
+
+    <!-- Update data api menggunakan axios-->
+    <script>
+        function updatePackage(packageId) {
+            event.preventDefault();
+
+            // Dapatkan data formulir
+            const form = document.getElementById('updateForm' + packageId);
+            const formData = new FormData(form);
+            console.log(formData);
+
+            //Kirim data ke API menggunakan Axios
+            axios.post(`https://backend.fastnetwork.id/api/package/update/${packageId}`, formData)
+                .then(response => {
+                    // Tanggapan berhasil
+                    console.log(response.data);
+                    // Lakukan tindakan sesuai kebutuhan, misalnya menampilkan pesan sukses atau me-redirect ke halaman lain
+                    $('#update' + packageId).modal('hide');
+                    // Lakukan tindakan sesuai kebutuhan, misalnya menampilkan pesan sukses atau me-redirect ke halaman lain
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Produk berhasil diperbarui!',
+                        timer: 5000, // waktu dalam milidetik (misalnya, 3000ms = 3 detik)
+                    }).then((result) => {
+                        // Jika pengguna menekan tombol "OK", refresh halaman
+                        if (result.isConfirmed) {
+                            // Tunggu 2 detik sebelum memuat ulang halaman
+                            window.location.reload();
+                        } else {
+                            window.location.reload();
+
+                        }
+                    });
+                })
+                .catch(error => {
+                    // Tanggapan gagal
+                    console.error(error.response.data);
+
+                    // Tampilkan pesan kesalahan pada formulir
+                    if (error.response.data.errors) {
+                        const errors = error.response.data.errors;
+                        Object.keys(errors).forEach(field => {
+                            const errorMessage = errors[field][0];
+                            document.getElementById(field + 'Error').innerText = errorMessage;
+                        });
+                    }
+                });
+        }
+    </script>
 
 @endsection
 @push('script')

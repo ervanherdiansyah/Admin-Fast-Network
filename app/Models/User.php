@@ -94,4 +94,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(order::class,  "user_id");
     }
+    public function notifikasi()
+    {
+        return $this->hasMany(Notifikasi::class,  "user_id");
+    }
 }

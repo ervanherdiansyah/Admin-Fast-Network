@@ -51,6 +51,9 @@
             <!-- End Navbar -->
             <!-- Content -->
             @yield('content')
+            <!-- User ID -->
+            <div id="user-id" data-user-id="{{ Auth::user()->id }}"></div>
+
             <!-- End Content -->
             @include('sweetalert::alert')
         </main>
@@ -82,6 +85,138 @@
     <script src="{{ asset('argon') }}/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 
     @stack('script')
+    <!-- Tambahkan link ke Websocket -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+    <!-- Tambahkan link ke Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Tambahkan link ke SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const socket = io("http://localhost:8080");
+        console.log(socket);
+        const user_id = document.getElementById('user-id').getAttribute('data-user-id');
+
+        // Memasang event handler untuk menerima notifikasi dari server WebSocket
+        // Mengambil ID pengguna dari atribut data di tag HTML
+        // Event listener for connection
+        getIsReadNotifikasi(user_id);
+
+        socket.on('connect', () => {
+            console.log('Connected to server');
+
+            // Emit event notifikasiCreated untuk mengambil data notifikasi dari server
+            socket.emit("notifikasiCreated", user_id);
+
+            socket.on("notifikasi", function(notifikasi) {
+                // Parse notifikasi dari JSON
+                // notifikasi = JSON.parse(notifikasi);
+                console.log("Notifikasi baru diterima:", notifikasi.data);
+                notifikasi.data.forEach(function(notif) {
+                    // Buat elemen untuk menampilkan notifikasi baru
+                    const newItem = document.createElement('li');
+                    newItem.classList.add('mb-2');
+                    newItem.innerHTML = `
+                            <a class="dropdown-item border-radius-md" href="javascript:;">
+                                <div class="d-flex py-1">
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="text-sm font-weight-normal mb-1">
+                                            <span class="font-weight-bold">${notif.content}</span>
+                                        </h6>
+                                        <p class="text-xs text-secondary mb-0">
+                                            <i class="fa fa-check "></i>
+                                            ${notif.is_read ? '<span>Sudah Dibaca</span>' : '<span>Belum Dibaca</span>'}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                        `;
+                    // Tambahkan elemen baru ke dalam dropdown menu
+                    const dropdownMenu = document.getElementById(
+                        'dropdown-notifikasi');
+                    dropdownMenu.prepend(newItem);
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownNotifikasi = document.getElementById('dropdownMenuButton');
+
+            dropdownNotifikasi.addEventListener('hidden.bs.dropdown', function() {
+                const dropdownMenu = document.getElementById('dropdown-notifikasi');
+                // Bersihkan daftar notifikasi sebelum menambahkan yang baru
+                dropdownMenu.innerHTML = '';
+                updateNotifikasiStatus();
+                getIsReadNotifikasi(user_id)
+
+            });
+        });
+
+        // Fungsi untuk memperbarui status notifikasi
+        function updateNotifikasiStatus() {
+            // Kirim permintaan ke server untuk memperbarui status notifikasi
+            axios.put(`http://127.0.0.1:8000/api/notifikasi/updateisread`)
+                .then(response => {
+                    console.log("Status notifikasi diperbarui:", response.data);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const dropdownNotifikasi = document.getElementById('dropdownMenuButton');
+
+        //     dropdownNotifikasi.addEventListener('show.bs.dropdown', function() {
+        //         const dropdownMenu = document.getElementById('dropdown-notifikasi');
+        //         // Bersihkan daftar notifikasi sebelum menambahkan yang baru
+        //         // dropdownMenu.innerHTML = '';
+
+
+        //         getIsReadNotifikasi(user_id)
+
+
+        //     });
+        // });
+
+        function getIsReadNotifikasi(user_id) {
+            axios.get(`http://127.0.0.1:8000/api/notifikasi/isread/${user_id}`)
+                .then(response => {
+                    const notifikasiIsRead = response.data.data
+                    console.log("data notifikasi isread:", notifikasiIsRead);
+
+                    notifikasiIsRead.forEach(function(notif) {
+                        // Buat elemen untuk menampilkan notifikasi baru
+                        const newItem = document.createElement('li');
+                        newItem.classList.add('mb-2');
+                        newItem.innerHTML = `
+                        <a class="dropdown-item border-radius-md" href="javascript:;">
+                            <div class="d-flex py-1">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <p class="text-sm font-weight-normal mb-1">
+                                        <span class="font-weight-bold">${notif.content}</span>
+                                    </p>
+                                    <p class="text-xs text-secondary mb-0">
+                                        <i class="fa fa-check "></i>
+                                        ${notif.is_read ? '<span>Sudah Dibaca</span>' : '<span>Belum Dibaca</span>'}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                        // Tambahkan elemen baru ke dalam dropdown menu
+                        const dropdownMenu = document.getElementById('dropdown-notifikasi');
+                        dropdownMenu.prepend(newItem);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+    </script>
+
+
 </body>
 
 </html>

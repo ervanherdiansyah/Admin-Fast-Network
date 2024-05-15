@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Paket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -14,8 +15,20 @@ class PaketAdminController extends Controller
     {
         try {
             //code...
-            $paket = Paket::get();
-            return view('Admin.pages.paket.index', compact('paket'));
+            $baseURL = env('FASTNETWORK_BASE_URL_API');
+            $response = Http::get($baseURL . 'package');
+
+            if ($response->successful()) {
+                $package = $response->json();
+                // dd($package);
+                return view('Admin.pages.paket.index', compact('package'));
+            } else {
+                abort($response->status(), 'Failed to fetch data from API');
+            }
+
+
+            // $product = Product::get();
+            // return view('Admin.pages.product.index', compact('product'));
         } catch (\Throwable $th) {
             //throw $th;
             toast('Error!!!', 'warning');
@@ -123,7 +136,6 @@ class PaketAdminController extends Controller
                 ]);
             } else {
                 $data->update([
-                    'user_id' => $request->user_id,
                     'paket_nama' => $request->paket_nama,
                     'max_quantity' => $request->max_quantity,
                     'price' => $request->price,

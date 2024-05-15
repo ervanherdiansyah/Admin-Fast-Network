@@ -66,7 +66,7 @@
             <div class="col-lg-12 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 pt-3 bg-transparent">
-                        {{-- <h6 class="text-capitalize">Pendaftaran Pertahun</h6> --}}
+                        <h6 class="text-capitalize">Grafik Pendaftaran</h6>
                         {{-- <p class="text-sm mb-0">
                             <i class="fa fa-arrow-up text-success"></i>
                             <span class="font-weight-bold">4% more</span> in 2021
@@ -124,7 +124,7 @@
             const chartData = @json($chart_data); // Variabel chartData diinisialisasi dengan data dari PHP
             const chartLabel = chartData.map(item => item.month_name);
             const chartValue = chartData.map(item => item.total);
-            console.log(chartValue);
+            // console.log(chartValue);
             var ctx1 = document.getElementById("chart-line").getContext("2d");
 
             var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
@@ -276,5 +276,6 @@
         </script>
     @endpush --}}
 
-
+    @push('notifikasi')
+    @endpush
 @endsection

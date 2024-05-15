@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class ProductAdminController extends Controller
@@ -13,8 +14,21 @@ class ProductAdminController extends Controller
     {
         try {
             //code...
-            $product = Product::get();
-            return view('Admin.pages.product.index', compact('product'));
+            $baseURl = env('FASTNETWORK_BASE_URL_API');
+            $response = Http::get($baseURl . 'product');
+            // $response = Http::get('https://backend.fastnetwork.id/api/product');
+
+            if ($response->successful()) {
+                $product = $response->json();
+                // dd($product);
+                return view('Admin.pages.product.index', compact('product'));
+            } else {
+                abort($response->status(), 'Failed to fetch data from API');
+            }
+
+
+            // $product = Product::get();
+            // return view('Admin.pages.product.index', compact('product'));
         } catch (\Throwable $th) {
             //throw $th;
             toast('Error!!!', 'warning');
