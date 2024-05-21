@@ -5,6 +5,9 @@
         integrity="sha512-qc0GepkUB5ugt8LevOF/K2h2lLGIloDBcWX8yawu/5V8FXSxZLn3NVMZskeEyOhlc6RxKiEj6QpSrlAoL1D3TA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
+@section('css')
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css" />
+@endsection
 @section('content')
     <div class="container-fluid py-4">
         <div class="row">
@@ -80,6 +83,279 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col-12 ">
+                <div class="card mb-4 ">
+                    <div class="card-header pb-0">
+                        <h6 class="d-lg-none">Daftar Jumlah Order Terbanyak</h6>
+                        <div class="d-flex align-items-center">
+                            <h6 class="d-none d-lg-block">Daftar Jumlah Order Terbanyak</h6>
+                            <div class="d-flex flex-wrap align-items-center ms-auto gap-2">
+                                {{-- <a href="{{ url('/dashboard/siswa/export') }}"
+                                    class="btn btn-primary btn-sm ms-auto">Export</a> --}}
+                                {{-- <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
+                                    data-bs-target="#import">
+                                    Import
+                                </button> --}}
+                                {{-- <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Tambah Product
+                                </button> --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body px-4 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="myTable" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            No</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Nama Pemesan</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Jumlah Order</th>
+                                        {{-- <th class="text-secondary opacity-7"></th> --}}
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($mostOrderedUsers as $item)
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">
+                                                            {{ $no++ }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">
+                                                            {{ $item->users->name }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $item->total_orders }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            {{-- <td class="align-middle">
+                                                <a type="button" class="" data-bs-toggle="modal"
+                                                    data-bs-target="#update{{ $item['id'] }}">
+                                                    <i class="fas fa-edit text-success text-sm opacity-10"></i>
+                                                </a>
+                                                <a type="button" class="" data-bs-toggle="modal"
+                                                    data-bs-target="#delete{{ $item['id'] }}">
+                                                    <i class="fas fa-trash fa-xs text-danger text-sm opacity-10"></i>
+                                                </a>
+
+                                            </td> --}}
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 ">
+                <div class="card mb-4 ">
+                    <div class="card-header pb-0">
+                        <h6 class="d-lg-none">Daftar Rangking Mitra</h6>
+                        <div class="d-flex align-items-center">
+                            <h6 class="d-none d-lg-block">Daftar Rangking Mitra</h6>
+                            <div class="d-flex flex-wrap align-items-center ms-auto gap-2">
+                                {{-- <a href="{{ url('/dashboard/siswa/export') }}"
+                                    class="btn btn-primary btn-sm ms-auto">Export</a> --}}
+                                {{-- <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
+                                    data-bs-target="#import">
+                                    Import
+                                </button> --}}
+                                {{-- <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Tambah Product
+                                </button> --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body px-4 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="myTable2" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Rangking</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Nama Mitra</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Total Point</th>
+                                        {{-- <th class="text-secondary opacity-7"></th> --}}
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($rankingPoint as $item)
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">
+                                                            {{ $no++ }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">
+                                                            {{ $item->users->name }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $item->total_point }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            {{-- <td class="align-middle">
+                                                <a type="button" class="" data-bs-toggle="modal"
+                                                    data-bs-target="#update{{ $item['id'] }}">
+                                                    <i class="fas fa-edit text-success text-sm opacity-10"></i>
+                                                </a>
+                                                <a type="button" class="" data-bs-toggle="modal"
+                                                    data-bs-target="#delete{{ $item['id'] }}">
+                                                    <i class="fas fa-trash fa-xs text-danger text-sm opacity-10"></i>
+                                                </a>
+
+                                            </td> --}}
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 ">
+                <div class="card mb-4 ">
+                    <div class="card-header pb-0">
+                        <h6 class="d-lg-none">Daftar Jumlah Use Referal Terbanyak</h6>
+                        <div class="d-flex align-items-center">
+                            <h6 class="d-none d-lg-block">Daftar Jumlah Use Referal Terbanyak</h6>
+                            <div class="d-flex flex-wrap align-items-center ms-auto gap-2">
+                                {{-- <a href="{{ url('/dashboard/siswa/export') }}"
+                                    class="btn btn-primary btn-sm ms-auto">Export</a> --}}
+                                {{-- <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
+                                    data-bs-target="#import">
+                                    Import
+                                </button> --}}
+                                {{-- <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Tambah Product
+                                </button> --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body px-4 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="myTable3" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            No</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Nama Mitra</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Total Use Referal</th>
+                                        {{-- <th class="text-secondary opacity-7"></th> --}}
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($rankingReferral as $item)
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">
+                                                            {{ $no++ }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">
+                                                            {{ $item->users->name }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $item->total_referral }}</h6>
+                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            {{-- <td class="align-middle">
+                                                <a type="button" class="" data-bs-toggle="modal"
+                                                    data-bs-target="#update{{ $item['id'] }}">
+                                                    <i class="fas fa-edit text-success text-sm opacity-10"></i>
+                                                </a>
+                                                <a type="button" class="" data-bs-toggle="modal"
+                                                    data-bs-target="#delete{{ $item['id'] }}">
+                                                    <i class="fas fa-trash fa-xs text-danger text-sm opacity-10"></i>
+                                                </a>
+
+                                            </td> --}}
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <footer class="footer pt-3  ">
             <div class="container-fluid">
                 <div class="row align-items-center justify-content-lg-between">
@@ -98,7 +374,8 @@
                     <div class="col-lg-6">
                         <ul class="nav nav-footer justify-content-center justify-content-lg-end">
                             <li class="nav-item">
-                                <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative
+                                <a href="https://www.creative-tim.com" class="nav-link text-muted"
+                                    target="_blank">Creative
                                     Tim</a>
                             </li>
                             <li class="nav-item">
@@ -279,3 +556,26 @@
     @push('notifikasi')
     @endpush
 @endsection
+@push('script')
+    <!-- Tautkan file JavaScript jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//cdn.datatables.net/2.0.1/js/dataTables.min.js"></script>
+    <script>
+        let table = new DataTable('#myTablee');
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable2').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable3').DataTable();
+        });
+    </script>
+@endpush

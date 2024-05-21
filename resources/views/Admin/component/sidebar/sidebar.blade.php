@@ -114,6 +114,27 @@
                     <span class="nav-link-text ms-1">Withdraw Point</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/gambar-banner-carousel') ? 'active' : '' }}"
+                    href="{{ url('/admin/gambar-banner-carousel') }}">
+                    <div
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa fa-calendar-check-o text-info text-sm opacity-10" aria-hidden="true"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Gambar Banner Carousel</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/gambar-informasi-banner') ? 'active' : '' }}"
+                    href="{{ url('/admin/gambar-informasi-banner') }}">
+                    <div
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa fa-calendar-check-o text-info text-sm opacity-10" aria-hidden="true"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Gambar Informasi Banner</span>
+                </a>
+            </li>
+
         </ul>
     </div>
     <div class="sidenav-footer mx-3 ">

@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Paket;
 use App\Models\User;
+use App\Models\UserWallet;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class DashboardController extends Controller
@@ -53,17 +55,23 @@ class DashboardController extends Controller
                     }
                 }
             }
-
-
             // $previousUnpainOrder = Order::where('user_id', Auth::user()->id)->where('status', 'Pending')->first();
             // if ($previousUnpainOrder) {
             //     $previousUnpainOrder->delete();
             // }
             $totalMitra =  User::where('role', 'mitra')->count();
             $totalPendapatan = Order::where('status', 'Paid')->sum('total_harga');
-            // dd($chart_data);
+            $mostOrderedUsers = Order::with('users')
+                ->select('user_id', DB::raw('COUNT(*) as total_orders'),)
+                ->where('status', 'Paid')
+                ->groupBy('user_id')
+                ->orderByDesc('total_orders')
+                ->get();
 
-            return view('Admin.pages.dashboard.index', compact('totalMitra', 'totalPendapatan', 'chart_data'));
+            // Daftar Ranking
+            $rankingPoint = UserWallet::orderBy('total_point', 'desc')->with('users')->get();
+            $rankingReferral = UserWallet::orderBy('total_referral', 'desc')->with('users')->get();
+            return view('Admin.pages.dashboard.index', compact('totalMitra', 'totalPendapatan', 'chart_data', 'mostOrderedUsers', 'rankingPoint', 'rankingReferral'));
         } catch (\Throwable $th) {
             Alert::toast('Error!!!', 'warning');
         }

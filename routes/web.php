@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CourierAdminController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GambarBannerAdminController;
 use App\Http\Controllers\Admin\ManagementUserAdminController;
 use App\Http\Controllers\Admin\MitraAdminController;
 use App\Http\Controllers\Admin\OrderAdminController;
@@ -49,8 +50,15 @@ Route::middleware(['role:superadmin'])->prefix('admin')->group(function () {
     Route::put('/paket/update/{id}', [PaketAdminController::class, 'updatePaket']);
     Route::delete('/paket/delete/{id}', [PaketAdminController::class, 'deletePaket']);
 
+    // Gambar Banner Carousel
+    Route::get('/gambar-banner-carousel', [GambarBannerAdminController::class, 'getGambarBannerCarousel']);
+
+    // Gambar Informasi Banner
+    Route::get('/gambar-informasi-banner', [GambarBannerAdminController::class, 'getGambarBannerInformasi']);
+
     // Courier
     Route::get('/courier', [CourierAdminController::class, 'getCourier']);
+    Route::get('/courier/table', [CourierAdminController::class, 'getCouriers']);
     Route::post('/courier/create', [CourierAdminController::class, 'createCourier']);
     Route::get('/courier-byid/{id}', [CourierAdminController::class, 'getCourierById']);
     Route::put('/courier/update/{id}', [CourierAdminController::class, 'updateCourier']);

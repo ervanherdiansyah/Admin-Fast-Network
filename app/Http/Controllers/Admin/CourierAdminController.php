@@ -21,6 +21,12 @@ class CourierAdminController extends Controller
         }
     }
 
+    public function getCouriers()
+    {
+        $couriers = Courier::all();
+        return response()->json($couriers);
+    }
+
     public function getCourierById($id)
     {
         try {

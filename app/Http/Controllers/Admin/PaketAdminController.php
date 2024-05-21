@@ -16,7 +16,7 @@ class PaketAdminController extends Controller
         try {
             //code...
             $baseURL = env('FASTNETWORK_BASE_URL_API');
-            $response = Http::get($baseURL . 'package');
+            $response = Http::get($baseURL . 'get-package');
 
             if ($response->successful()) {
                 $package = $response->json();

@@ -495,9 +495,10 @@
 
             const form = document.getElementById('createForm');
             const formData = new FormData(form);
+            const baseURL = "{{ env('FASTNETWORK_BASE_URL_API') }}";
 
             // Kirim data ke API menggunakan Axios
-            axios.post(`https://backend.fastnetwork.id/api/package/create`, formData)
+            axios.post(`${baseURL}package/create`, formData)
                 .then(response => {
                     // Tanggapan berhasil
                     console.log(response.data);
@@ -540,8 +541,9 @@
         function deletePackage(packageId) {
             // Kirim permintaan DELETE ke API menggunakan Axios
             event.preventDefault();
+            const baseURL = "{{ env('FASTNETWORK_BASE_URL_API') }}";
 
-            axios.delete(`https://backend.fastnetwork.id/api/package/delete/${packageId}`)
+            axios.delete(`${baseURL}package/delete/${packageId}`)
                 .then(response => {
                     // Tanggapan berhasil
                     console.log(response.data);
@@ -586,9 +588,10 @@
             const form = document.getElementById('updateForm' + packageId);
             const formData = new FormData(form);
             console.log(formData);
+            const baseURL = "{{ env('FASTNETWORK_BASE_URL_API') }}";
 
             //Kirim data ke API menggunakan Axios
-            axios.post(`https://backend.fastnetwork.id/api/package/update/${packageId}`, formData)
+            axios.post(`${baseURL}package/update/${packageId}`, formData)
                 .then(response => {
                     // Tanggapan berhasil
                     console.log(response.data);
