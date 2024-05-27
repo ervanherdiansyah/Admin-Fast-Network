@@ -134,6 +134,36 @@
                     <span class="nav-link-text ms-1">Gambar Informasi Banner</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/info') ? 'active' : '' }}"
+                    href="{{ url('/admin/info') }}">
+                    <div
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa fa-calendar-check-o text-info text-sm opacity-10" aria-hidden="true"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Info Bonus</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/target') ? 'active' : '' }}"
+                    href="{{ url('/admin/target') }}">
+                    <div
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa fa-calendar-check-o text-info text-sm opacity-10" aria-hidden="true"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Target Bonus</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/pilihan-cepat') ? 'active' : '' }}"
+                    href="{{ url('/admin/pilihan-cepat') }}">
+                    <div
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa fa-calendar-check-o text-info text-sm opacity-10" aria-hidden="true"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Pilihan Cepat Pencairan</span>
+                </a>
+            </li>
 
         </ul>
     </div>

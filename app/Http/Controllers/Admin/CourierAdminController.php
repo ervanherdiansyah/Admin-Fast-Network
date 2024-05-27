@@ -44,12 +44,14 @@ class CourierAdminController extends Controller
         try {
             //code...
             Request()->validate([
-                'courier_name' => 'required',
+                'name' => 'required',
+                'code' => 'required',
             ]);
 
 
             $courier = Courier::create([
-                'courier_name' => $request->courier_name,
+                'name' => $request->name,
+                'code' => $request->code,
             ]);
 
             toast('Berhasil Create Courier', 'success');
@@ -66,12 +68,14 @@ class CourierAdminController extends Controller
         try {
             //code...
             Request()->validate([
-                'courier_name' => 'required',
+                'name' => 'required',
+                'code' => 'required',
             ]);
 
             $courier = Courier::find($id);
             $courier->update([
-                'courier_name' => $request->courier_name,
+                'name' => $request->name,
+                'code' => $request->code,
             ]);
 
             toast('Berhasil Update Courier', 'success');

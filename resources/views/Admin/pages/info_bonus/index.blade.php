@@ -1,5 +1,5 @@
 @extends('Admin.layouts.layout')
-@section('title', 'Courier')
+@section('title', 'Info Bonus')
 @section('css')
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css" />
 @endsection
@@ -9,9 +9,9 @@
             <div class="col-12 ">
                 <div class="card mb-4 ">
                     <div class="card-header pb-0">
-                        <h6 class="d-lg-none">Courier</h6>
+                        <h6 class="d-lg-none">Info Bonus</h6>
                         <div class="d-flex align-items-center">
-                            <h6 class="d-none d-lg-block">Courier</h6>
+                            <h6 class="d-none d-lg-block">Info Bonus</h6>
                             <div class="d-flex flex-wrap align-items-center ms-auto gap-2">
                                 {{-- <a href="{{ url('/dashboard/siswa/export') }}"
                                     class="btn btn-primary btn-sm ms-auto">Export</a> --}}
@@ -21,7 +21,7 @@
                                 </button> --}}
                                 <button type="button" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
-                                    Tambah Courier
+                                    Tambah Info Bonus
                                 </button>
                             </div>
                         </div>
@@ -33,33 +33,18 @@
                                     <tr>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
-                                            Nama Courier</th>
-                                        <th class="text-secondary opacity-7"></th>
-
-                                    </tr>
-                                    <tr>
-                                        <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
-                                            Code</th>
+                                            Nama Info Bonus</th>
                                         <th class="text-secondary opacity-7"></th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($courier as $item)
+                                    @foreach ($info as $item)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->name }}</h6>
-                                                        {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->code }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item->deskripsi }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
@@ -132,24 +117,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('/admin/courier/create') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('/admin/info/create') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Nama Courier</label>
-                                    <input name="name" class="form-control" type="text" value="{{ old('name') }}">
-                                    @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Code</label>
-                                    <input name="code" class="form-control" type="text"
-                                        value="{{ old('code') }}">
-                                    @error('code')
+                                    <label for="example-text-input" class="form-control-label">Nama Info Bonus</label>
+                                    <input name="deskripsi" class="form-control" type="text"
+                                        value="{{ old('deskripsi') }}">
+                                    @error('deskripsi')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -195,17 +171,17 @@
     <!-- End Modal Import Data-->
 
     <!-- Modal Update Data-->
-    @foreach ($courier as $item)
+    @foreach ($info as $item)
         <div class="modal fade" id="update{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update Courier</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Update Info Bonus</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ url('/admin/courier/update/' . $item->id) }}" method="POST"
+                        <form action="{{ url('/admin/info/update/' . $item->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -213,19 +189,9 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Nama Product</label>
-                                        <input name="name" class="form-control" type="text"
-                                            value="{{ $item->name }}">
-                                        @error('name')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Code</label>
-                                        <input name="code" class="form-control" type="text"
-                                            value="{{ $item->code }}">
-                                        @error('code')
+                                        <input name="deskripsi" class="form-control" type="text"
+                                            value="{{ $item->deskripsi }}">
+                                        @error('deskripsi')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -244,17 +210,17 @@
     <!-- End Modal Update Data-->
 
     <!-- Modal Delete Data-->
-    @foreach ($courier as $item)
+    @foreach ($info as $item)
         <div class="modal fade" id="delete{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Courier {{ $item->nama_lengkap }}</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Info Bonus {{ $item->nama_lengkap }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ url('/admin/courier/delete/' . $item->id) }}" method="Post">
+                        <form action="{{ url('/admin/info/delete/' . $item->id) }}" method="Post">
                             @csrf
                             @method('DELETE')
                             <p>apakah anda yakin ingin menghapus data ini?</p>
