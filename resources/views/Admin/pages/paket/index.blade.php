@@ -142,6 +142,10 @@
                                                     <i class="fas fa-edit text-success text-sm opacity-10"></i>
                                                 </a>
                                                 <a type="button" class="" data-bs-toggle="modal"
+                                                    data-bs-target="#updateDiskon{{ $item['id'] }}">
+                                                    <i class="fas fa-edit text-info text-sm opacity-10"></i>
+                                                </a>
+                                                <a type="button" class="" data-bs-toggle="modal"
                                                     data-bs-target="#delete{{ $item['id'] }}">
                                                     <i class="fas fa-trash fa-xs text-danger text-sm opacity-10"></i>
                                                 </a>
@@ -459,6 +463,60 @@
     @endforeach
     <!-- End Modal Update Data-->
 
+    <!-- Modal Update Diskon Data-->
+    @foreach ($package['data'] as $item)
+        <div class="modal fade" id="updateDiskon{{ $item['id'] }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Paket</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updateDiscountForm{{ $item['id'] }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('POST')
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="form-control-label">Harga Diskon</label>
+                                        <input name="discount_price" class="form-control" type="number"
+                                            value="{{ $item['discount_price'] }}">
+                                        @error('discount_price')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="is_discount" class="form-control-label">Aktifkan Diskon</label>
+                                        <input type="hidden" name="is_discount" value="0">
+                                        <div class="form-check form-switch">
+                                            <input name="is_discount" class="form-check-input" type="checkbox"
+                                                role="switch" id="is_discount" value="1"
+                                                {{ $item['is_discount'] ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="is_discount">Aktifkan Diskon</label>
+                                        </div>
+                                        @error('is_discount')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" onclick="updateDiscountPackage({{ $item['id'] }})"
+                                    class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    <!-- End Modal Update Diskon Data-->
+
     <!-- Modal Delete Data-->
     @foreach ($package['data'] as $item)
         <div class="modal fade" id="delete{{ $item['id'] }}" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -592,6 +650,57 @@
 
             //Kirim data ke API menggunakan Axios
             axios.post(`${baseURL}package/update/${packageId}`, formData)
+                .then(response => {
+                    // Tanggapan berhasil
+                    console.log(response.data);
+                    // Lakukan tindakan sesuai kebutuhan, misalnya menampilkan pesan sukses atau me-redirect ke halaman lain
+                    $('#update' + packageId).modal('hide');
+                    // Lakukan tindakan sesuai kebutuhan, misalnya menampilkan pesan sukses atau me-redirect ke halaman lain
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Produk berhasil diperbarui!',
+                        timer: 5000, // waktu dalam milidetik (misalnya, 3000ms = 3 detik)
+                    }).then((result) => {
+                        // Jika pengguna menekan tombol "OK", refresh halaman
+                        if (result.isConfirmed) {
+                            // Tunggu 2 detik sebelum memuat ulang halaman
+                            window.location.reload();
+                        } else {
+                            window.location.reload();
+
+                        }
+                    });
+                })
+                .catch(error => {
+                    // Tanggapan gagal
+                    console.error(error.response.data);
+
+                    // Tampilkan pesan kesalahan pada formulir
+                    if (error.response.data.errors) {
+                        const errors = error.response.data.errors;
+                        Object.keys(errors).forEach(field => {
+                            const errorMessage = errors[field][0];
+                            document.getElementById(field + 'Error').innerText = errorMessage;
+                        });
+                    }
+                });
+        }
+    </script>
+
+    <!-- Update data api menggunakan axios-->
+    <script>
+        function updateDiscountPackage(packageId) {
+            event.preventDefault();
+
+            // Dapatkan data formulir
+            const form = document.getElementById('updateDiscountForm' + packageId);
+            const formData = new FormData(form);
+            console.log(formData);
+            const baseURL = "{{ env('FASTNETWORK_BASE_URL_API') }}";
+
+            //Kirim data ke API menggunakan Axios
+            axios.post(`${baseURL}package/set-discount/${packageId}`, formData)
                 .then(response => {
                     // Tanggapan berhasil
                     console.log(response.data);

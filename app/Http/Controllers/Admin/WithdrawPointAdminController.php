@@ -143,6 +143,13 @@ class WithdrawPointAdminController extends Controller
                 'status_withdraw' => $request->status_withdraw,
             ]);
 
+            $userWallet = UserWallet::where('user_id', $withdrawPoint->user_id)->first();
+            if ($withdrawPoint->status_withdraw == 'Berhasil') {
+                $userWallet->update([
+                    'current_point' => $userWallet->current_point - $withdrawPoint->amount,
+                ]);
+            }
+
             toast('Berhasil Update Withdraw Point Status', 'success');
             return redirect('/admin/withdraw-point');
         } catch (\Throwable $th) {

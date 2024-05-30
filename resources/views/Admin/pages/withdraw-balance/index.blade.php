@@ -243,7 +243,7 @@
                                         <select name="user_id" id="" class="form-control">
                                             <option disabled selected value="">Pilih User</option>
                                             <option value="{{ $item->user_id }}">
-                                                {{ $data->users->name }}
+                                                {{ $item->users->name }}
                                             </option>
                                             @foreach ($user as $data)
                                                 <option value="{{ $data->id }}">{{ $data->name }}
@@ -327,9 +327,16 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status_withdraw" id="" class="form-control">
-                                            <option disabled selected value="">Pilih...</option>
-                                            <option value="Acc">
-                                                Acc Penukaran Point
+                                            <option disabled selected
+                                                {{ $item->status_withdraw == null ? 'selected' : '' }} value="">
+                                                Pilih...</option>
+                                            <option value="Berhasil"
+                                                {{ $item->status_withdraw == 'Berhasil' ? 'selected' : '' }}>
+                                                Pencairan Diterima
+                                            </option>
+                                            <option value="Gagal"
+                                                {{ $item->status_withdraw == 'Gagal' ? 'selected' : '' }}>
+                                                Pencairan Ditolak
                                             </option>
                                         </select>
                                         @error('status_withdraw')

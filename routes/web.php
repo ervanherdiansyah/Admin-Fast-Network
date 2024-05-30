@@ -132,7 +132,7 @@ Route::middleware(['role:superadmin'])->prefix('admin')->group(function () {
     Route::post('/withdraw-point/create', [WithdrawPointAdminController::class, 'createithdrawPoint']);
     Route::get('/withdraw-point-byid/{id}', [WithdrawPointAdminController::class, 'getithdrawPointById']);
     Route::put('/withdraw-point/update/{id}', [WithdrawPointAdminController::class, 'updateithdrawPoint']);
-    Route::put('/withdraw-point-status/update/{id}', [WithdrawPointAdminController::class, 'updateithdrawPointStatus']);
+    Route::put('/withdraw-point-status/update/{id}', [WithdrawPointAdminController::class, 'updateWithdrawPointStatus']);
     Route::delete('/withdraw-point/delete/{id}', [WithdrawPointAdminController::class, 'deleteithdrawPoint']);
 });
 

@@ -39,9 +39,6 @@
                                             Reward</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
-                                            Jumlah Pencairan</th>
-                                        <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                             Point</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
@@ -72,7 +69,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->point }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item->amount }}</h6>
                                                         {{-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> --}}
                                                     </div>
                                                 </div>
@@ -236,7 +233,7 @@
                                         <select name="user_id" id="" class="form-control">
                                             <option disabled selected value="">Pilih User</option>
                                             <option value="{{ $item->user_id }}">
-                                                {{ $data->users->name }}
+                                                {{ $item->users->name }}
                                             </option>
                                             @foreach ($user as $data)
                                                 <option value="{{ $data->id }}">{{ $data->name }}
@@ -254,7 +251,7 @@
                                         <select name="reward_id" id="" class="form-control">
                                             <option disabled selected value="">Pilih Reward</option>
                                             <option value="{{ $item->reward_id }}">
-                                                {{ $data->rewards->reward_name }}
+                                                {{ $item->rewards->reward_name }}
                                             </option>
                                             @foreach ($reward as $data)
                                                 <option value="{{ $data->id }}">{{ $data->reward_name }}
@@ -327,9 +324,16 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status_withdraw" id="" class="form-control">
-                                            <option disabled selected value="">Pilih...</option>
-                                            <option value="Acc">
-                                                Acc Penukaran Point
+                                            <option disabled selected
+                                                {{ $item->status_withdraw == null ? 'selected' : '' }} value="">
+                                                Pilih...</option>
+                                            <option value="Berhasil"
+                                                {{ $item->status_withdraw == 'Berhasil' ? 'selected' : '' }}>
+                                                Penukaran Point Diterima
+                                            </option>
+                                            <option value="Gagal"
+                                                {{ $item->status_withdraw == 'Gagal' ? 'selected' : '' }}>
+                                                Penukaran Point Ditolak
                                             </option>
                                         </select>
                                         @error('status_withdraw')

@@ -143,6 +143,13 @@ class WithdrawBalanceAdminController extends Controller
                 'status_withdraw' => $request->status_withdraw,
             ]);
 
+            $userWallet = UserWallet::where('user_id', $withdrawBalance->user_id)->first();
+            if ($withdrawBalance->status_withdraw == 'Berhasil') {
+                $userWallet->update([
+                    'current_balance' => $userWallet->current_balance - $withdrawBalance->amount_withdraw,
+                ]);
+            }
+
             toast('Berhasil Update Withdraw Balance Status', 'success');
             return redirect('/admin/withdraw-balance');
         } catch (\Throwable $th) {
